@@ -1,5 +1,6 @@
 ﻿DROP DATABASE IF EXISTS TaskManagerDB;
 CREATE DATABASE TaskManagerDB;
+GO
 USE TaskManagerDB;
 CREATE TABLE Users (
 	Id INT PRIMARY KEY IDENTITY,
@@ -14,7 +15,7 @@ CREATE TABLE Tasks (
 	Title NVARCHAR(255) NOT NULL,
 	Description NVARCHAR(1000),
 	Notes NVARCHAR(1000),
-	Is_Active BIT NOT NULL DEFAULT 1,
+	Is_Active BIT NOT NULL,
 	Parent_Id INT,
 	CONSTRAINT fk_Tasks_Parent
 		FOREIGN KEY (Parent_Id)
@@ -58,7 +59,7 @@ CREATE TABLE Notifications (
 	Id INT PRIMARY KEY IDENTITY,
 	Task_Id INT,
 	Request_Id INT,
-	Is_Viewed BIT NOT NULL DEFAULT 0,
+	Is_Viewed BIT NOT NULL,
 	CONSTRAINT Notifications_Mut_Ex CHECK (Task_Id is NULL or Request_Id is NULL),
 	CONSTRAINT fk_notifications_task_id
 		FOREIGN KEY (Task_Id)
