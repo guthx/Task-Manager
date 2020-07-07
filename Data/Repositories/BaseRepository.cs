@@ -48,5 +48,58 @@ namespace TaskManager.Data.Repositories
             DbContext.SaveChanges();
         }
 
+        public async Task<T> AddAsync(T entity)
+        {
+            if(entity == null)
+            {
+                throw new ArgumentNullException("Entity cannot be null");
+            }
+            try
+            {
+                await Set.AddAsync(entity);
+                await DbContext.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception)
+            {
+                throw new Exception($"{nameof(entity)} could not be saved");
+            }
+        }
+
+        public async Task<T> UpdateAsync(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("Entity cannot be null");
+            }
+            try
+            {
+                Set.Update(entity);
+                await DbContext.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception)
+            {
+                throw new Exception($"{nameof(entity)} could not be updated");
+            }
+        }
+
+        public async void DeleteAsync(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("Entity cannot be null");
+            }
+            try
+            {
+                Set.Remove(entity);
+                await DbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new Exception($"{nameof(entity)} could not be deleted");
+            }
+        }
+
     }
 }
