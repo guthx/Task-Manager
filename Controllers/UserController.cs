@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Controllers.Requests.User;
+using TaskManager.Controllers.Responses.User;
 using TaskManager.Services;
 
 namespace TaskManager.Controllers
@@ -44,6 +45,27 @@ namespace TaskManager.Controllers
             }
             
             
+        }
+
+        [HttpPost("login")]
+        public ActionResult<LoginResponse> Login(LoginRequest request)
+        {
+            try
+            {
+                var token = _userService.Login(request.Email, request.Password);
+                if (token == null)
+                {
+                    return StatusCode(400);
+                }
+                else
+                {
+                    return new LoginResponse { Jwt = token };
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

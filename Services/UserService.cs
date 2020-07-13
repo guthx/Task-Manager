@@ -19,5 +19,10 @@ namespace TaskManager.Services
         {
             return await _userRepository.Register(user);
         }
+
+        public string Login(string email, string password)
+        {
+            return _userRepository.Login(email, password);
+        }
     }
 }
