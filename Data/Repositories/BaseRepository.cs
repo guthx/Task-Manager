@@ -60,7 +60,7 @@ namespace TaskManager.Data.Repositories
                 await DbContext.SaveChangesAsync();
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new Exception($"{nameof(entity)} could not be saved");
             }

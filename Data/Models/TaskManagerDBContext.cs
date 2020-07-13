@@ -33,6 +33,8 @@ namespace TaskManager.Data.Models
 
                 entity.Property(e => e.TaskId).HasColumnName("Task_Id");
 
+                entity.Property(e => e.UserId).HasColumnName("User_Id");
+
                 entity.HasOne(d => d.Request)
                     .WithMany(p => p.Notifications)
                     .HasForeignKey(d => d.RequestId)
@@ -42,6 +44,11 @@ namespace TaskManager.Data.Models
                     .WithMany(p => p.Notifications)
                     .HasForeignKey(d => d.TaskId)
                     .HasConstraintName("fk_notifications_task_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Notifications)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("fk_notifications_user_id");
             });
 
             modelBuilder.Entity<Privilege>(entity =>
@@ -62,6 +69,8 @@ namespace TaskManager.Data.Models
 
                 entity.Property(e => e.TaskId).HasColumnName("Task_Id");
 
+                entity.Property(e => e.PrivilegeId).HasColumnName("Privilege_Id");
+
                 entity.HasOne(d => d.Receiver)
                     .WithMany(p => p.RequestsReceiver)
                     .HasForeignKey(d => d.ReceiverId)
@@ -79,6 +88,12 @@ namespace TaskManager.Data.Models
                     .HasForeignKey(d => d.TaskId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_requests_task_id");
+
+                entity.HasOne(d => d.Privilege)
+                    .WithMany(p => p.Requests)
+                    .HasForeignKey(d => d.PrivilegeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_requests_privilege_id");
             });
 
             modelBuilder.Entity<Task>(entity =>

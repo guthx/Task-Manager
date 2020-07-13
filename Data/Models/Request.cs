@@ -14,10 +14,12 @@ namespace TaskManager.Data.Models
         public int SenderId { get; set; }
         public int ReceiverId { get; set; }
         public int TaskId { get; set; }
+        public int PrivilegeId { get; set; }
 
         public User Receiver { get; set; }
         public User Sender { get; set; }
         public Task Task { get; set; }
+        public Privilege Privilege { get; set; }
         public ICollection<Notification> Notifications { get; set; }
     }
 }

@@ -14,6 +14,7 @@ CREATE TABLE Tasks (
 	Id INT PRIMARY KEY IDENTITY,
 	Title NVARCHAR(255) NOT NULL,
 	Description NVARCHAR(1000),
+	Deadline DATETIME,
 	Notes NVARCHAR(1000),
 	Is_Active BIT NOT NULL,
 	Parent_Id INT,
@@ -23,7 +24,7 @@ CREATE TABLE Tasks (
 )
 
 CREATE TABLE Privileges (
-	Id INT PRIMARY KEY IDENTITY,
+	Id INT PRIMARY KEY,
 	Name VARCHAR(20) NOT NULL,
 	Description NVARCHAR(100)
 )
@@ -44,6 +45,7 @@ CREATE TABLE Requests (
 	Sender_Id INT NOT NULL,
 	Receiver_Id INT NOT NULL,
 	Task_Id INT NOT NULL,
+	Privilege_Id INT NOT NULL,
 	CONSTRAINT fk_requests_sender_id
 		FOREIGN KEY (Sender_Id)
 		REFERENCES Users(Id),
@@ -52,14 +54,21 @@ CREATE TABLE Requests (
 		REFERENCES Users(Id),
 	CONSTRAINT fk_requests_task_id
 		FOREIGN KEY (Task_Id)
-		REFERENCES Tasks(Id)
+		REFERENCES Tasks(Id),
+	CONSTRAINT fk_requests_privilege_id
+		FOREIGN KEY (Privilege_Id)
+		REFERENCES Privileges(Id)
 )
 
 CREATE TABLE Notifications (
 	Id INT PRIMARY KEY IDENTITY,
+	User_Id INT NOT NULL,
 	Task_Id INT,
 	Request_Id INT,
 	Is_Viewed BIT NOT NULL,
+	CONSTRAINT fk_notifications_user_id
+		FOREIGN KEY (User_Id)
+		REFERENCES Users(Id),
 	CONSTRAINT Notifications_Mut_Ex CHECK (Task_Id is NULL or Request_Id is NULL),
 	CONSTRAINT fk_notifications_task_id
 		FOREIGN KEY (Task_Id)
@@ -70,10 +79,10 @@ CREATE TABLE Notifications (
 )
 
 INSERT INTO Privileges
-VALUES ('Full', 'Allows for all actions on a task, including deletion');
+VALUES (1, 'Full', 'Allows for all actions on a task, including deletion');
 INSERT INTO Privileges
-VALUES ('Moderator', 'Allows for all actions except deletion');
+VALUES (2, 'Moderator', 'Allows for all actions except deletion');
 INSERT INTO Privileges
-VALUES ('Limited', 'Allows only for marking tasks as done and adding notes');
+VALUES (3, 'Limited', 'Allows only for marking tasks as done and adding notes');
 INSERT INTO Privileges
-VALUES ('View-only', 'Allows only view of the tasks');
+VALUES (4, 'View-only', 'Allows only view of the tasks');

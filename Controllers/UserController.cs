@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TaskManager.Controllers.Requests.User;
-using TaskManager.Controllers.Responses.User;
+using TaskManager.Helpers.Requests.Users;
+using TaskManager.Helpers.Responses.Users;
 using TaskManager.Services;
 
 namespace TaskManager.Controllers
@@ -39,7 +39,7 @@ namespace TaskManager.Controllers
                 {
                     return StatusCode(400);
                 }
-            } catch (Exception)
+            } catch (Exception ex)
             {
                 return StatusCode(500);
             }

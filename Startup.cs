@@ -39,6 +39,12 @@ namespace TaskManager
             services.AddTransient<UserRepository>();
             services.AddTransient<UserService>();
             services.AddTransient<UserController>();
+            services.AddTransient<TaskController>();
+            services.AddTransient<TaskService>();
+            services.AddTransient<TaskRepository>();
+            services.AddTransient<UsersTaskRepository>();
+            services.AddTransient<NotificationRepository>();
+            services.AddTransient<RequestRepository>();
 
             var tokenConfiguration = Configuration.GetSection("tokenManagement");
             services.Configure<TokenManagement>(tokenConfiguration);

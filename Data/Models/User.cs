@@ -19,5 +19,6 @@ namespace TaskManager.Data.Models
 
         public ICollection<Request> RequestsReceiver { get; set; }
         public ICollection<Request> RequestsSender { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
     }
 }

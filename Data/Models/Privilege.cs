@@ -15,5 +15,6 @@ namespace TaskManager.Data.Models
         public string Description { get; set; }
 
         public ICollection<UsersTask> UsersTasks { get; set; }
+        public ICollection<Request> Requests { get; set; }
     }
 }

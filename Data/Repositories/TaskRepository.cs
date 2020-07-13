@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskManager.Data.Models;
+using TaskManager.Helpers.Responses.Tasks;
 
 namespace TaskManager.Data.Repositories
 {
@@ -12,5 +13,6 @@ namespace TaskManager.Data.Repositories
             : base(dbContext)
         { 
         }
+
     }
 }

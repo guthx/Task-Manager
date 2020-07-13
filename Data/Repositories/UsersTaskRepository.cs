@@ -6,9 +6,9 @@ using TaskManager.Data.Models;
 
 namespace TaskManager.Data.Repositories
 {
-    public class RequestRepository : BaseRepository<Request>
+    public class UsersTaskRepository : BaseRepository<Models.UsersTask>
     {
-        public RequestRepository(TaskManagerDBContext dbContext)
+        public UsersTaskRepository(TaskManagerDBContext dbContext)
             : base(dbContext)
         {
         }

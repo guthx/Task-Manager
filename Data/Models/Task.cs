@@ -15,6 +15,7 @@ namespace TaskManager.Data.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public DateTime? Deadline { get; set; }
         public string Notes { get; set; }
         public bool IsActive { get; set; }
         public int? ParentId { get; set; }
